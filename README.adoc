@@ -99,7 +99,7 @@ use testdb
 db.createUser({user: 'sampleUser', pwd:'openliberty', roles: [{ role: 'readWrite', db:'testdb'}]})
 ```
 
-See [https://docs.mongodb.com/manual/mongo/index.html]`The mongo Shell` for more information about the using their Shell.
+See https://docs.mongodb.com/manual/mongo/index.html[The mongo Shell] for more information about the using their Shell.
 
 Type `exit` to get out of the mongo Shell, and if you are using Docker, type `exit` again to leave the Docker Shell.
 
@@ -246,7 +246,7 @@ include::finish/src/main/java/io/openliberty/guides/mongo/MongoProducer.java[]
 
 Using MicroProfile Config makes configuring the MongoDB driver simple.
 
-[role="code_command hotspot file=0", subs="quotes"]
+[role="code_command hotspot", subs="quotes"]
 ----
 #Create the configuration file.#
 `src/main/webapp/META-INF/microprofile-config.properties`
@@ -257,11 +257,11 @@ microprofile-config.properties
 include::finish/src/main/webapp/META-INF/microprofile-config.properties[]
 ----
 
-The values in the `microprofile-config.properties` file are injected into the [hotspot=mongoProducerInjections]`MongoProducer` class.
+The values in the [file=4]`microprofile-config.properties` file are injected into the [hotspot=mongoProducerInjections file=2]`MongoProducer` class.
 
 === Using an encoded password with passwordUtilities-1.0
 
-One of the advantages of using a CDI producer is that it can be tailored to your needs. For improved security, the `createMongo` method includes authentication with a [hotspot=username]`user name` and an [hotspot=encodedPassword]`encoded password` which is decoded using [hotspot=passwordUtil]`passwordUtilities-1.0`. This tool is specified in `pom.xml` as a [hotspot=passwordUtilDependency]`dependency` and in `server.xml` as a [hotspot=passwordUtilFeature]`feature`.
+One of the advantages of using a CDI producer is that it can be tailored to your needs. For improved security, the `createMongo` method includes authentication with a [hotspot=username file=2]`user name` and an [hotspot=encodedPassword file=2]`encoded password` which is decoded using [hotspot=passwordUtil file=2]`passwordUtilities-1.0`. This tool is specified in `pom.xml` as a [hotspot=passwordUtilDependency file=1]`dependency` and in `server.xml` as a [hotspot=passwordUtilFeature file=0]`feature`.
 
 // =================================================================================================
 // Basic CRUD operations
@@ -269,9 +269,9 @@ One of the advantages of using a CDI producer is that it can be tailored to your
 
 == Basic CRUD operations
 
-You will be implementing the basic `CRUD` operations which are `CREATE`, `READ`, `UPDATE`, and `DELETE`. The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/package-summary.html]`com.mongodb.client` package is used help to implement these `CRUD` operations for the microservice. The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)]`MongoDatabase.getCollection()` method will be used to get the [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html]`MongoCollection` and several methods from [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html]`MongoCollection` will be used to interact with the collection to implement the `CRUD` operations.
+You will be implementing the basic `CRUD` operations which are `CREATE`, `READ`, `UPDATE`, and `DELETE`. The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/package-summary.html[com.mongodb.client] package is used help to implement these `CRUD` operations for the microservice. The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoDatabase.html#getCollection(java.lang.String)[MongoDatabase.getCollection()] method will be used to get the http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html[MongoCollection] and several methods from http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html[MongoCollection] will be used to interact with the collection to implement the `CRUD` operations.
 
-See [https://openliberty.io/guides/rest-intro.html]`Creating a RESTful web serivce` for more information about creating a REST service with JAX-RS, JSON-B, and Open Liberty.
+See https://openliberty.io/guides/rest-intro.html[Creating a RESTful web serivce] for more information about creating a REST service with JAX-RS, JSON-B, and Open Liberty.
 
 [role="code_command hotspot", subs="quotes"]
 ----
@@ -284,14 +284,14 @@ CrewService.java
 include::finish/src/main/java/io/openliberty/guides/application/CrewService.java[]
 ----
 
-A [hotspot=beanValidator]`Validator` is used to validate the [hotspot=crewMember]`CrewMember` before inserting or updating the database.
+A [hotspot=beanValidator file=4]`Validator` is used to validate the [hotspot=crewMember]`CrewMember` before inserting or updating the database.
 
 === Injecting the database
 
 The CDI producer is used to inject a `MongoDatabase` into the [hotspot=dbInjection]`CrewService` class.
 
 === Create
-The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#insertOne(TDocument)]`MongoCollection.insertOne()` method is used to insert a new document into the collection. This method takes in a `Document` which is the configuration of the new crew member to be inserted into the collection and does not return anything. The [hotspot=create]`add()` method handles the implementation of `CREATE`.
+The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#insertOne-TDocument-[MongoCollection.insertOne()] method is used to insert a new document into the collection. This method takes in a `TDocument` which is the configuration of the new crew member to be inserted into the collection and does not return anything. The [hotspot=create file=4]`add()` method handles the implementation of `CREATE`.
 
 Test the `CREATE` endpoint by running the following cURL command:
 [role='command']
@@ -314,7 +314,7 @@ You will receive a response containing the JSON object of the new member.
 
 
 === Read
-The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#find()]`MongoCollection.find()` method is used to retrieve an iterable of all the crew member documents in the collection. This method does not take in any arguments and returns a [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/FindIterable.html]`FindIterable` object. The [hotspot=read]`retrieve()` method handles the implementation of `READ`.
+The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#find--[MongoCollection.find()] method is used to retrieve an iterable of all the crew member documents in the collection. This method does not take in any arguments and returns a http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/FindIterable.html[FindIterable] object. The [hotspot=read file=4]`retrieve()` method handles the implementation of `READ`.
 
 Test the `READ` endpoint by running the following cURL command:
 [role='command']
@@ -338,7 +338,7 @@ You will receive a response containing an array of all the members currently in 
 ```
 
 === Update
-The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#replaceOne(org.bson.conversions.Bson,TDocument)]`MongoCollection.replaceOne()` method is used update a specified document. This method takes in a `Document` which contains the `id` of the document to be replaced and another `Document` which is the new configuration of the crew member. The method returns an [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/result/UpdateResult.html]`UpdateResult` object with a method called `getMatchedCount()` which indicates the number of matches to the query. The [hotspot=update]`update()` method handles the implementation of `UPDATE`
+The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#replaceOne-org.bson.conversions.Bson-TDocument-[MongoCollection.replaceOne()] method is used update a specified document. This method takes in a `Bson` which contains the `id` of the document to be replaced and another `TDocument` which is the new configuration of the crew member. The method returns an http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/result/UpdateResult.html[UpdateResult] object with a method called `getMatchedCount()` which indicates the number of matches to the query. The [hotspot=update file=4]`update()` method handles the implementation of `UPDATE`
 
 Test the `UPDATE` endpoint by running the following cURL command:
 [role='command']
@@ -357,7 +357,7 @@ You will receive a reponse containing the JSON object of the updated member.
 ```
 
 === Delete
-The [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#deleteOne(org.bson.conversions.Bson)]`MongoCollection.deleteOne()` method is used to remove a document from the collection. This method takes in a `Document` which contains the `id` of the document to be deleted and returns a [http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/result/DeleteResult.html]`DeleteResult` object with a method called `getDeletedCount()` to indicate the number of documents deleted from the collection. The [hotspot=delete]`remove()` method handles the implmentation of `DELETE`
+The http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/MongoCollection.html#deleteOne-org.bson.conversions.Bson-[MongoCollection.deleteOne()] method is used to remove a document from the collection. This method takes in a `Bson` which contains the `id` of the document to be deleted and returns a http://mongodb.github.io/mongo-java-driver/3.8/javadoc/com/mongodb/client/result/DeleteResult.html[DeleteResult] object with a method called `getDeletedCount()` to indicate the number of documents deleted from the collection. The [hotspot=delete file=4]`remove()` method handles the implmentation of `DELETE`
 
 Test the `DELETE` endpoint by running the following cURL command:
 [role='command']
@@ -413,7 +413,7 @@ include::finish/src/test/java/it/io/openliberty/guides/application/CrewApplicati
 ----
 
 This test class has more lines of code than the resource implementation.
-The test method is indicated with the [hotspot=test file=0]`@Test` annotation.
+The test method is indicated with the [hotspot=test file=5]`@Test` annotation.
 
 pom.xml
 [source , xml, linenums,role="code_column"]
@@ -426,19 +426,19 @@ The test code needs to know some information about the application to make reque
 
 These Maven properties are then passed to the Java test program as the [hotspot=testsysprops file=1]`<systemPropertyVariables/>` element in the [hotspot file=1]`pom.xml` file.
 
-The [hotspot=Before file=0]`@Before` annotation is placed on a method that runs before any of the test cases. In this case, the method creates a JAX-RS client, which makes HTTP requests to the crew service, it also retrieves the port number and application context for the Open Liberty server, creates testing crew member data and builds a base URL string that is used throughout the tests.
+The [hotspot=Before file=5]`@Before` annotation is placed on a method that runs before any of the test cases. In this case, the method creates a JAX-RS client, which makes HTTP requests to the crew service, it also retrieves the port number and application context for the Open Liberty server, creates testing crew member data and builds a base URL string that is used throughout the tests.
 
-The [hotspot=After file=0]`@After` with [hotspot=teardown file=0]`teardown()` method simply destroys the client instance.
+The [hotspot=After file=5]`@After` with [hotspot=teardown file=5]`teardown()` method simply destroys the client instance.
 
 See the following descriptions of the test cases:
 
-* [hotspot=testAddCrewMember file=0]`testAddCrewMember()` verifies that new members are correctly added to the database.
+* [hotspot=testAddCrewMember file=5]`testAddCrewMember()` verifies that new members are correctly added to the database.
 
-* [hotspot=testUpdateCrewMember file=0]`testUpdateCrewMember()` verifies that a crew member information is correctly updated.
+* [hotspot=testUpdateCrewMember file=5]`testUpdateCrewMember()` verifies that a crew member information is correctly updated.
 
-* [hotspot=testGetCrewMembers file=0]`testGetCrewMembers()` verifies that a list of crew members returned by the application API.
+* [hotspot=testGetCrewMembers file=5]`testGetCrewMembers()` verifies that a list of crew members returned by the application API.
 
-* [hotspot=testDeleteCrewMember file=0]`testDeleteCrewMember()` verifies that the crew members are correctly removed from the database.
+* [hotspot=testDeleteCrewMember file=5]`testDeleteCrewMember()` verifies that the crew members are correctly removed from the database.
 
 === Running the tests
 

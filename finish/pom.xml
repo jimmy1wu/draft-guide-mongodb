@@ -24,7 +24,9 @@
         <!-- tag::defaultHttpPort[] -->
         <http.port>9080</http.port>
         <!-- end::defaultHttpPort[] -->
+        <!-- tag::defaultHttpsPort[] -->
         <https.port>9443</https.port>
+        <!-- end::defaultHttpsPort[] -->
         <packaging.type>usr</packaging.type>
         <app.name>${project.artifactId}</app.name>
         <!-- tag::appContextRoot[] -->
@@ -77,6 +79,18 @@
         <!-- end::profile-docker-image[] -->
     </profiles>
 
+    <dependencyManagement>
+        <dependencies>
+            <dependency>
+                <groupId>io.openliberty.features</groupId>
+                <artifactId>features-bom</artifactId>
+                <version>18.0.0.2</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+        </dependencies>
+    </dependencyManagement>
+
     <!-- Clean these up later -->
     <dependencies>
         <dependency>
@@ -97,14 +111,31 @@
             <artifactId>mongo-java-driver</artifactId>
             <version>3.8.0</version>
         </dependency>
-        <!-- tag::passwordUtilDependency -->
         <dependency>
-            <groupId>com.ibm.websphere.appserver.api</groupId>
-            <artifactId>com.ibm.websphere.appserver.api.passwordUtil</artifactId>
-            <version>[1.0.21,)</version>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>ssl-1.0</artifactId>
+            <type>esa</type>
             <scope>provided</scope>
         </dependency>
+        <dependency>
+            <groupId>io.openliberty.features</groupId>
+            <artifactId>passwordUtilities-1.0</artifactId>
+            <type>esa</type>
+            <scope>provided</scope>
+        </dependency>
+        <!-- tag::passwordUtilDependency -->
+<!--        <dependency>-->
+<!--            <groupId>com.ibm.websphere.appserver.api</groupId>-->
+<!--            <artifactId>com.ibm.websphere.appserver.api.passwordUtil</artifactId>-->
+<!--            <version>[1.0.21,)</version>-->
+<!--            <scope>provided</scope>-->
+<!--        </dependency>-->
         <!-- end::passwordUtilDependency -->
+<!--        <dependency>-->
+<!--            <groupId>com.ibm.websphere.appserver.api</groupId>-->
+<!--            <artifactId>com.ibm.websphere.appserver.api.ssl</artifactId>-->
+<!--            <version>1.3.35</version>-->
+<!--        </dependency>-->
         <!-- For tests -->
         <dependency>
             <groupId>org.apache.cxf</groupId>
